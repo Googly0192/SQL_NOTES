@@ -1,38 +1,111 @@
--- insertions
+-- Delete all rows from all tables and reset primary key back to 1.
+
+TRUNCATE TABLE measurements_1 RESTART IDENTITY CASCADE;
+TRUNCATE TABLE measurements_2 RESTART IDENTITY CASCADE;
+TRUNCATE TABLE measurements_4 RESTART IDENTITY CASCADE;
+TRUNCATE TABLE measurements_8 RESTART IDENTITY CASCADE;
+TRUNCATE TABLE collection_plans RESTART IDENTITY CASCADE;
+TRUNCATE TABLE contexts RESTART IDENTITY CASCADE;
+TRUNCATE TABLE products RESTART IDENTITY CASCADE;
+TRUNCATE TABLE sources RESTART IDENTITY CASCADE;
+
+-- INSERT sources Table
 INSERT INTO sources (attributes, description)
-values ('{"Fab": "Aloha", "Area": "Etch", "Tool": "Endura_987", "Degas": "1B"}'::jsonb,
-   			'source description....');
+values ('{"Fab": "Fab_1", "Area": "F1.A1", "Tool": "F1.A1.T1", "Chamber": "F1.A1.T1.C1"}'::jsonb, 'sources: F1.A1.T1.C1 Description....');
+
+INSERT INTO sources (attributes, description)
+values ('{"Fab": "Fab_1", "Area": "F1.A1", "Tool": "F1.A1.T1", "Chamber": "F1.A1.T1.C2"}'::jsonb, 'sources: F1.A1.T1.C2 Description....');
+
+INSERT INTO sources (attributes, description)
+values ('{"Fab": "Fab_1", "Area": "F1.A1", "Tool": "F1.A1.T2", "Chamber": "F1.A1.T2.C2"}'::jsonb, 'sources: F1.A1.T1.C1 Description....');
+
+INSERT INTO sources (attributes, description)
+values ('{"Fab": "Fab_1", "Area": "F1.A2", "Tool": "F1.A2.T1", "Chamber": "F1.A2.T1.C1"}'::jsonb, 'sources: F1.A1.T1.C1 Description....');
+
+INSERT INTO sources (attributes, description)
+values ('{"Fab": "Fab_2", "Area": "F2.A1", "Tool": "F2.A1.T1", "Chamber": "F2.A1.T1.C1"}'::jsonb, 'sources: F1.A1.T1.C1 Description....');
+
+INSERT INTO sources (attributes, description)
+values ('{"Fab": "Fab_2", "Area": "F2.A2", "Tool": "F2.A2.T1", "Chamber": "F2.A2.T1.C1"}'::jsonb, 'sources: F1.A1.T1.C1 Description....');
+
+INSERT INTO sources (attributes, description)
+values ('{"Fab": "Fab_2", "Area": "F2.A2", "Tool": "F2.A2.T2", "Chamber": "F2.A2.T2.C1"}'::jsonb, 'sources: F1.A1.T1.C1 Description....');
+
+INSERT INTO sources (attributes, description)
+values ('{"Fab": "Fab_2", "Area": "F2.A2", "Tool": "F2.A2.T2", "Chamber": "F2.A2.T2.C2"}'::jsonb, 'sources: F1.A1.T1.C1 Description....');
+-- SELECT * FROM sources;
+
+-- INSERT PRODUCTS TABLE
+INSERT INTO products (attributes, description)
+values ('{"Lot": "Lot_1", "Slot": "L1.S1", "Wafer": "L1.S1.W1"}'::jsonb,	'products: L1.S1.W1 Description....');
 
 INSERT INTO products (attributes, description)
-values ('{"Type": "Logic", "Family": "I9"}'::jsonb,	'Product description....');
+values ('{"Lot": "Lot_1", "Slot": "L1.S1", "Wafer": "L1.S1.W2"}'::jsonb,	'products: L1.S1.W2 Description....');
 
-INSERT INTO contexts (source_id, product_id, collection_plan_id)
-values (10,1,15);
+INSERT INTO products (attributes, description)
+values ('{"Lot": "Lot_1", "Slot": "L1.S2", "Wafer": "L1.S2.W1"}'::jsonb,	'products: L1.S2.W1 Description....');
 
-INSERT INTO measurements_1 (context_id, measurement_time, col_1)
-values (1,NOW(),11.11);
+INSERT INTO products (attributes, description)
+values ('{"Lot": "Lot_1", "Slot": "L1.S2", "Wafer": "L1.S2.W2"}'::jsonb,	'products: L1.S2.W2 Description....');
 
-INSERT INTO measurements_2 (context_id, measurement_time, col_1, col_2)
-values (2,NOW(),2.115, 2.2215);
+INSERT INTO products (attributes, description)
+values ('{"Lot": "Lot_2", "Slot": "L2.S1", "Wafer": "L2.S1.W1"}'::jsonb,	'products: L2.S1.W1 Description....');
 
-INSERT INTO measurements_4 (context_id, measurement_time, col_1, col_2, col_3, col_4)
-values (2,NOW(),4.115, 4.215, 4.315, 4.415);
+INSERT INTO products (attributes, description)
+values ('{"Lot": "Lot_2", "Slot": "L2.S2", "Wafer": "L2.S2.W2"}'::jsonb,	'products: L2.S2.W2 Description....');
+-- SELECT * FROM products;
 
-INSERT INTO measurements_8 (context_id, measurement_time, col_1, col_2, col_3, col_4, col_5, col_6, col_7, col_8)
-values (1,NOW(),8.1,8.2,8.3,8.4,8.5,8.6,8.7,8.8);
-			
-select * from sources;
-select * from products;
-select * from collection_plans;
-select * from contexts;
-select * from measurements_1;
-select * from measurements_2;
-select * from measurements_4;
-select * from measurements_8;
+-- INSERT COLLECTION_PLANS TABLE
+INSERT INTO collection_plans (svids, description)
+VALUES('[
+	   	 {"table_1": {"col_1": "CP1.T1.C1"}}
+	    ]', 'Collection_Plans: CP1.T1 Description');
 
-select m1.col_1, m2.col_1, m2.col_2, m4.col_1, m4.col_2, m4.col_3, m4.col_4 from measurements_1 AS m1 
-	INNER JOIN measurements_2 AS m2 ON m1.context_id = m2.context_id
-	INNER JOIN measurements_4 AS m4 ON m2.context_id = m4.context_id
-	WHERE m1.context_id = 1
-	
-SELECT * FROM get_measurements(10);
+INSERT INTO collection_plans (svids, description)
+VALUES('[
+	     {"table_2": {"col_1": "CP2.T2.C1", "col_2": "CP2.T2.C2"}}
+	    ]', 'Collection_Plans: CP2.T2 Description');	
+
+INSERT INTO collection_plans (svids, description)
+VALUES('[
+	   	 {"table_1": {"col_1": "CP3.T1.C1"}},
+	     {"table_2": {"col_1": "CP3.T2.C1", "col_2": "CP3.T2.C2"}}
+	    ]', 'Collection_Plans: CP3.T1.T2 Description');			
+		
+INSERT INTO collection_plans (svids, description)
+VALUES('[
+	     {"table_4": {"col_1": "CP4.T4.C1", "col_2": "CP4.T4.C2", "col_3": "CP4.T4,C3", "col_4": "CP4.T4.C4"}}
+	    ]', 'Collection_Plans: CP4.T4 Description');		
+		
+INSERT INTO collection_plans (svids, description)
+VALUES('[
+	     {"table_1": {"col_1": "CP5.T1.C1"}},
+	     {"table_4": {"col_1": "CP5.T4.C1", "col_2": "CP5.T4.C2", "col_3": "CP5.T4,C3", "col_4": "CP5.T4.C4"}}
+	    ]',  'Collection_Plans: CP5.T1.T4 Description');	
+	   
+INSERT INTO collection_plans (svids, description)
+VALUES('[
+	     {"table_2": {"col_1": "CP6.T2.C1", "col_2": "CP6.T2.C2"}},
+	     {"table_4": {"col_1": "CP6.T4.C1", "col_2": "CP6.T4.C2", "col_3": "CP6.T4,C3", "col_4": "CP6.T4.C4"}}
+	    ]', 'Collection_Plans: CP6.T2.T4 Description');	
+		
+INSERT INTO collection_plans (svids, description)
+VALUES('[
+	     {"table_1": {"col_1": "CP7.T1.C1"}},
+	     {"table_2": {"col_1": "CP7.T2.C1", "col_2": "CP7.T2.C2"}},
+	     {"table_4": {"col_1": "CP7.T4.C1", "col_2": "CP7.T4.C2", "col_3": "CP7.T4,C3", "col_4": "CP7.T4.C4"}}
+	    ]', 'Collection_Plans: CP7.T1.T2.T4 Description');		
+				
+		
+INSERT INTO collection_plans (svids, description)
+VALUES('[
+	     {"table_8": {"col_1": "CP8.T8.C1", "col_2": "CP8.T8.C2", "col_3": "CP8.T8,C3", "col_4": "CP8.T8.C4",
+	   				  "col_5": "CP8.T8.C5", "col_2": "CP8.T8.C6", "col_3": "CP8.T8,C7", "col_4": "CP8.T8.C8"}
+	     }
+	    ]', 'Collection_Plans: CP8.T8 Description');		
+
+-- SELECT * FROM collection_plans;
+
+-- SELECT * FROM measurements_1;
+
+

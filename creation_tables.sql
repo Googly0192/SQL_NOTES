@@ -24,3 +24,36 @@ CREATE TABLE contexts (
 	product_id bigint,
 	collection_plan_id bigint
 );
+
+ALTER TABLE contexts
+ADD CONSTRAINT fk_product
+FOREIGN KEY (product_id)
+REFERENCES products (id)
+ON DELETE SET NULL;
+
+
+ALTER TABLE contexts
+ADD CONSTRAINT fk_source
+FOREIGN KEY (source_id)
+REFERENCES sources (id)
+ON DELETE SET NULL;
+
+ALTER TABLE ONLY public.measurements_1
+    ADD CONSTRAINT fk_context FOREIGN KEY (context_id) REFERENCES public.contexts(id) ON DELETE SET NULL;
+
+ALTER TABLE ONLY public.measurements_2
+    ADD CONSTRAINT fk_context FOREIGN KEY (context_id) REFERENCES public.contexts(id) ON DELETE SET NULL;
+	
+ALTER TABLE ONLY public.measurements_4
+    ADD CONSTRAINT fk_context FOREIGN KEY (context_id) REFERENCES public.contexts(id) ON DELETE SET NULL;
+	
+ALTER TABLE ONLY public.measurements_8
+    ADD CONSTRAINT fk_context FOREIGN KEY (context_id) REFERENCES public.contexts(id) ON DELETE SET NULL;
+	
+ALTER TABLE ONLY public.contexts
+    ADD CONSTRAINT fk_collection_plan FOREIGN KEY (collection_plan_id) REFERENCES public.collection_plans(id) ON DELETE SET NULL;
+
+	
+--pg_dump -s -d ProcAI -f C:\Projects\Production_Code\database_schemaProcAI.sql;
+
+
