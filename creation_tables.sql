@@ -1,3 +1,5 @@
+--C:\Users\Shuaib Muhammad>pg_dump -U postgres -d ProcAI > C:\junk\ProcAI.sql
+
 CREATE TABLE meaurements_8 (
     id SERIAL PRIMARY KEY,
     context_id SERIAL,
@@ -55,5 +57,6 @@ ALTER TABLE ONLY public.contexts
 
 	
 --pg_dump -s -d ProcAI -f C:\Projects\Production_Code\database_schemaProcAI.sql;
-
+-- select * from products;
+-- select * from collection_plans;
 
