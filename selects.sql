@@ -44,7 +44,7 @@ DECLARE
 new_id INTEGER;
 Begin
 	CALL add_collection_plan('[{"table_1":{"col_1":"123"}},{"table_2":{"col_1":"gfgf", "col_2": "trtrt"}}]'::jsonb,
-					 'New Description', new_id);
+					 'Newly_Added_2', 'New Description', new_id);
 	RAISE INFO  'New ID: %', new_id;					 
 END $$;
 SELECT * FROM collection_plans;
@@ -58,3 +58,15 @@ Begin
 	RAISE INFO  'New ID: %', new_id;					 
 END $$;
 SELECT * FROM public.get_all_contexts();
+
+
+DO $$
+DECLARE 
+cp_id INTEGER;
+Begin
+	CALL get_collection_plan_id('Collection_Plan_88', cp_id);
+	RAISE INFO  'collection_plan_id: %', cp_id;					 
+END $$;
+
+
+
