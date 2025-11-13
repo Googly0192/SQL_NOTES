@@ -32,7 +32,7 @@ DO $$
 DECLARE 
 new_id INTEGER;
 Begin
-	CALL add_product('{"Lot": "Lot A", "Slot": "Slot_A", "Wafer": "Wafer A"}'::jsonb,
+	CALL add_product('{"Lot": "Lot AI", "Slot": "Slot_A", "Wafer": "Wafer A"}'::jsonb,
 					 'New Description', new_id);
 	RAISE INFO  'New ID: %', new_id;					 
 END $$;
@@ -67,6 +67,29 @@ Begin
 	CALL get_collection_plan_id('Collection_Plan_88', cp_id);
 	RAISE INFO  'collection_plan_id: %', cp_id;					 
 END $$;
+
+
+SELECT * FROM measurements_1;
+
+DO $$
+DECLARE 
+len INTEGER;
+Begin
+	SELECT array_length(ARRAY[1, 2, 3, 4, 5], 1) INTO len;
+	RAISE INFO  'Array Length: %', len;					 
+END $$;
+
+
+DO $$
+DECLARE 
+mId BOOLEAN;
+Begin
+	CALL add_measurements(3, '{1.1, 2.1, 3.1, 4.1, 5.1}'::REAL[], mId);
+	RAISE INFO  'collection_plan_id: %', mId;					 
+END $$;
+SELECT * FROM measurements_1;
+SELECT * FROM measurements_2;
+SELECT * FROM measurements_4;
 
 
 
