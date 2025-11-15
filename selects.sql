@@ -85,7 +85,7 @@ DO $$
 DECLARE 
 mId BOOLEAN;
 Begin
-	CALL add_measurements(7, '{1.1, 2.1, 3.1, 4.1, 5.1}'::REAL[], mId);
+	CALL add_measurements(7, '{1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1, 8.1, 9.1, 10.1, 11.1, 12.1, 13.1, 14.1, 15.1}'::REAL[], mId);
 	RAISE INFO  'collection_plan_id: %', mId;					 
 END $$;
 SELECT * FROM measurements_1;
@@ -94,18 +94,39 @@ SELECT * FROM measurements_4;
 SELECT * FROM collection_plans WHERE cp_name = 'Collection_Plan_3';
 
 
+DO $$
+DECLARE 
+ t VARCHAR(100);
+ c VARCHAR(100);
+Begin
+	SELECT tableName, colName INTO t, c FROM get_svid_column('CP5.T4.C2', 'Collection_Plan_5');
+	RAISE INFO  't: %, c: %', t, c;					 
+END $$;
+
 SELECT * 
 FROM measurements_1 m1
 INNER JOIN measurement_2 m2 ON m1.context_id = m2.context_id
 
 
-SELECT * FROM get_svid_column('CP5.T4.C9', 'Collection_Plan_5');
+SELECT * FROM get_svid_column('CP5.T4.C2', 'Collection_Plan_5');
 
-SELECT * FROM get_measurement('CP7.T2.C1', 'Collection_Plan_9', '{"source":{"Chamber": "F1.A1.T2.C2"}, "product":{"Wafer": "L1.S2.W1"}}');
+SELECT * FROM get_measurement('CP5.T4.C2', 'Collection_Plan_5', '{"source":{"Chamber": "F1.A1.T2.C2"}, "product":{"Wafer": "L1.S2.W1"}}');
 
+SELECT measurements_4.col_2, conxt.id context_id FROM contexts AS conxt  
+INNER JOIN measurements_4 ON measurements_4.context_id = conxt.id;
+
+SELECT table_4.col_2 conxt.id context_id
+FROM contexts AS conxt  
+INNER JOIN table_4 ON conxt.id = table_4.context_id;
+						
 SELECT * FROM collection_plans;
-INSERT INTO collection_plans (svids, cp_name, description)
-VALUES('{"table_1": {"col_1": "CP7.T2.C1"},"table_2": {"col_1": "CP7.T2.C1", "col_2": "CP7.T2.C2"}}',
-	   'Collection_Plan_7', 'Collection_Plans: CP7.T1.T2.T4 Description');
+SELECT * FROM contexts;
+SELECT * FROM measurements_2;
+
+
+
+SELECT * FROM get_where_source('{"wafer_id":{"comparator":"=", "val":"Wafer_123"}, "lot_id":{"comparator":"LIKE", "val":"Lot_abc"}}');
+
+
 
 
