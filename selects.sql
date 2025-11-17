@@ -124,13 +124,25 @@ SELECT * FROM contexts;
 SELECT * FROM measurements_1;
 SELECT * FROM measurements_2;
 SELECT * FROM measurements_4;
+SELECT * FROM measurements_8;
 
+INSERT INTO public.measurements_1 (context_id, measurement_time, col_1)
+VALUES(5, Now(), 1.51);
+
+INSERT INTO public.measurements_2 (context_id, measurement_time, col_1, col_2)
+VALUES(5, Now(), 2.51, 2.52);
+
+INSERT INTO public.measurements_4 (context_id, measurement_time, col_1, col_2, col_3, col_4)
+VALUES(5, Now(), 4.51, 4.52, 4.53, 4.54);
+
+INSERT INTO public.measurements_8 (context_id, measurement_time, col_1, col_2, col_3, col_4, col_5, col_6, col_7, col_8)
+VALUES(5, Now(), 8.51, 8.52, 8.53, 8.54, 8.55, 8.56, 8.57, 8.58);
 
 
 SELECT * FROM get_where_clause('source', '{"Fab":{"comparator":"=", "val":"Fab_1"}, "Tool":{"comparator":"=", "val":"F1.A1.T2"}, "Chamber":{"comparator":"LIKE", "val":"F1.A1.T2.C2"}}');
 SELECT * FROM get_where_clause('product', '{"wafer_id":{"comparator":"=", "val":"Wafer_123"}, "lot_id":{"comparator":"LIKE", "val":"Lot_abc"}}');
 
-SELECT * FROM get_measurement('CP5T1C1', 'Collection_Plan_5', '{"source": {"Fab":{"comparator":"=", "val":"Fab_1"}, "Tool":{"comparator":"=", "val":"F1.A1.T2"}}, "product":{"Chamber":{"comparator":"LIKE", "val":"F1.A1.T2.C2"}}}');
+SELECT * FROM get_measurement('CP5T4C3', 'Collection_Plan_5', '{"source": {"Fab":{"comparator":"=", "val":"Fab_1"}, "Tool":{"comparator":"=", "val":"F1.A1.T2"}}, "product":{"Lot":{"comparator":"=", "val":"Lot_1"}}}');
 
 --select '{"source":{"Chamber": "F1.A1.T2.C2"}, "product":{"Wafer": "L1.S2.W1"}}'::JSONB->>'source'
 -- select '{"source": {"Fab":{"comparator":"=", "val":"Fab_1"}, "Tool":{"comparator":"=", "val":"F1.A1.T2"}}, "product":{"Chamber":{"comparator":"LIKE", "val":"F1.A1.T2.C2"}}}'::JSONB->'source';
