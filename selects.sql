@@ -22,8 +22,8 @@ DO $$
 DECLARE 
 new_id INTEGER;
 Begin
-	CALL add_source('{"Fab": "New Fab 2", "Area": "F1.A1", "Tool": "F1.A1.T1", "Chamber": "F1.A1.T1.C1"}'::jsonb,
-					 'New Description', new_id);
+	CALL add_source('{"Fab": "New Fab 6", "Area": "F1.A1", "Tool": "F1.A1.T1", "Chamber": "F1.A1.T1.C1"}'::jsonb,
+					 'New Description 3', new_id);
 	RAISE INFO  'New ID: %', new_id;					 
 END $$;
 SELECT * FROM public.get_all_sources();
@@ -91,6 +91,7 @@ END $$;
 SELECT * FROM measurements_1;
 SELECT * FROM measurements_2;
 SELECT * FROM measurements_4;
+SELECT * FROM measurements_8;
 SELECT * FROM collection_plans WHERE cp_name = 'Collection_Plan_5';
 
 
@@ -155,6 +156,15 @@ INNER JOIN sources  ON conxt.source_id = sources.id
 WHERE  (sources.attributes->>'Fab' = 'Fab_1'  AND sources.attributes->>'Tool' = 'F1.A1.T2' )  
 AND  (products.attributes->>'Chamber' LIKE 'F1.A1.T2.C2' ) 
 
+SELECT * FROM get_all_sources();
+SELECT * FROM get_source_by_id(3);
 
 
+DO $$
+DECLARE 
+new_id INTEGER;
+Begin
+	CALL setx('fdfdf', new_id);
+	RAISE INFO  'New ID: %', new_id;					 
+END $$;
 
