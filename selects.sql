@@ -168,3 +168,19 @@ Begin
 	RAISE INFO  'New ID: %', new_id;					 
 END $$;
 
+
+SELECT * FROM public.get_all_collection_plans();
+SELECT * FROM public.get_collection_plan_by_name('Collection_Plan_4');
+SELECT * FROM public.get_collection_plan_by_id(5);
+SELECT * FROM public.fget_collection_plan_id('Collection_Plan_4');
+
+
+DO $$
+DECLARE 
+new_id INTEGER;
+Begin
+	CALL setx('fdfdf', new_id);
+	RAISE INFO  'New ID: %', new_id;					 
+END $$;
+
+
