@@ -44,7 +44,7 @@ DO $$
 DECLARE 
 new_id INTEGER;
 Begin
-	CALL add_collection_plan('[{"table_1":{"col_1":"123"}},{"table_2":{"col_1":"gfgf", "col_2": "trtrt"}}]'::jsonb,
+	CALL add_collection_plan('[{"table_1":{"col_1":"1234"}},{"table_2":{"col_1":"gfgf", "col_2": "trtrt"}}]'::jsonb,
 					 'Newly_Added_2', 'New Description', new_id);
 	RAISE INFO  'New ID: %', new_id;					 
 END $$;
@@ -173,6 +173,7 @@ SELECT * FROM public.get_all_collection_plans();
 SELECT * FROM public.get_collection_plan_by_name('Collection_Plan_4');
 SELECT * FROM public.get_collection_plan_by_id(5);
 SELECT * FROM public.fget_collection_plan_id('Collection_Plan_4');
+SELECT * FROM sources;
 
 
 DO $$
@@ -182,5 +183,21 @@ Begin
 	CALL setx('fdfdf', new_id);
 	RAISE INFO  'New ID: %', new_id;					 
 END $$;
+
+
+DO $$
+DECLARE 
+new_id INTEGER;
+Begin
+	CALL add_collection_planV2(ARRAY['C1', 'C2','C3', 'C4', 'c5', 'C6', 'C7', 'C8', 'C9', 'C10', 'C11', 'C12', 'C13', 'C14', 'C15', 'C16']::TEXT[],
+					 'Collection Plan 16', 'New Description', new_id);
+	RAISE INFO  'New ID: %', new_id;					 
+END $$;
+SELECT * FROM collection_plans;
+
+DELETE FROM collection_plans WHERE cp_name LIKE 'Collection Plan %';
+DELETE FROM collection_plans WHERE cp_name = 'CP_13';
+DELETE FROM collection_plans WHERE id > 8;
+
 
 
