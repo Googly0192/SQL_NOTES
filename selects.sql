@@ -200,4 +200,26 @@ DELETE FROM collection_plans WHERE cp_name = 'CP_13';
 DELETE FROM collection_plans WHERE id > 8;
 
 
+SELECT * FROM public.get_all_products();
+SELECT * FROM public.get_product_by_id(4);
+DELETE FROM products WHERE id > 6;
+SELECT * FROM public.get_all_contexts();
+SELECT * FROM public.get_all_contexts_detail();
+SELECT * FROM public.get_context_by_id(6);
+SELECT * FROM public.get_context_by_id_detail(6);
+
+SELECT * FROM contexts;
+SELECT c.id context_id, cp.cp_name collection_plan_name, cp.svids SVIDS, p.attributes product_attributes, s.attributes source_attributes FROM contexts AS c
+	INNER JOIN products AS p ON p.id = c.product_id
+	INNER JOIN sources AS s ON c.source_id = s.id
+	INNER JOIN collection_plans AS cp ON c.collection_plan_id = cp.id;
+
+
+
+
+
+
+
+
+
 
